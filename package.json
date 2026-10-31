@@ -1,0 +1,20 @@
+{
+  "name": "ocean-clash",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["shared", "server", "client"],
+  "engines": { "node": ">=24.0.0 <25.0.0" },
+  "scripts": {
+    "build": "npm run build -w @ocean/shared && npm run build -w @ocean/server && npm run build -w @ocean/client",
+    "dev": "npm run build -w @ocean/shared && concurrently -k -n server,client -c blue,cyan \"npm run dev -w @ocean/server\" \"npm run dev -w @ocean/client\"",
+    "start": "npm run start -w @ocean/server",
+    "test": "npm run build -w @ocean/shared && npm run test -w @ocean/server",
+    "test:e2e": "playwright test",
+    "typecheck": "npm run build -w @ocean/shared && npm run typecheck -w @ocean/server && npm run typecheck -w @ocean/client"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "concurrently": "^9.2.1"
+  }
+}
